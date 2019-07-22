@@ -8,10 +8,9 @@ private int slotNumber;
 public Registration() {
 }
 
-public Registration(String registrationNumber, String color, int slotNumber) {
+public Registration(String registrationNumber, String color) {
 	this.registrationNumber = registrationNumber;
 	this.color = color;
-	this.slotNumber = slotNumber;
 }
 
 public String getRegistrationNumber() {
