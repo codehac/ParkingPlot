@@ -38,7 +38,7 @@ private static void startCMD() {
  * @param directoryName
  * @return
  */
-private static void readDirectory(String directoryName) throws FileNotFoundException {
+public static void readDirectory(String directoryName) throws FileNotFoundException {
 	if (checkEmpty(directoryName)) {
 		System.out.println("Please Enter Valid Name of Directory");
 	}
@@ -54,7 +54,7 @@ private static void readDirectory(String directoryName) throws FileNotFoundExcep
  * @param data
  * @return
  */
-private static void processData(String[] data) {
+public static void processData(String[] data) {
 	String commandType = data[0];
 	switch (commandType) {
 		case Constants.CREATE:
