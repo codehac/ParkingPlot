@@ -1,7 +1,7 @@
-package constants;
+package com.gojek.constants;
 
 public class Constants {
-public static final String CREATE = "create";
+public static final String CREATE = "create_parking_lot";
 public static final String PARK = "park";
 public static final String STATUS = "status";
 public static final String LEAVE = "leave";

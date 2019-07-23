@@ -1,6 +1,6 @@
-package service;
+package com.gojek.service;
 
-import modal.Registration;
+import com.gojek.modal.Registration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ private List<Integer> slots = null;
  * @param slotSize
  * @return
  */
+@Override
 public void register(final int slotSize) {
 	this.totalSlotSize = slotSize;
 	this.registrationsList = new ArrayList<>(totalSlotSize);
@@ -27,13 +28,14 @@ public void register(final int slotSize) {
  * @param registration
  * @return slotNumber
  */
+@Override
 public int allocateSlots(Registration registration) {
 	if (EmptySlots()) {
 		return -1;
 	}
 	int slotNumber = slots.get(0);
 	registration.setSlotNumber(slotNumber);
-	registrationsList.add(registration);
+	registrationsList.add(slotNumber - 1, registration);
 	slots.remove(new Integer(slotNumber));
 	return slotNumber;
 }
@@ -42,6 +44,7 @@ public int allocateSlots(Registration registration) {
  * @param color
  * @return List<Integer>slotNumber
  */
+@Override
 public List<Integer> getAllSlotNumberByColor(final String color) {
 	final List<Integer> registrations = new ArrayList<>();
 	registrationsList.forEach((x) -> {
@@ -56,6 +59,7 @@ public List<Integer> getAllSlotNumberByColor(final String color) {
  * @param registrationNunber
  * @return slotNumber
  */
+@Override
 public Integer getSlotNumberByRegistrationName(final String registrationNunber) {
 	Registration registration = null;
 	if (EmptyRegistration()) {
@@ -63,7 +67,7 @@ public Integer getSlotNumberByRegistrationName(final String registrationNunber) 
 	}
 	registration = registrationsList.stream().filter(x -> registrationNunber.equals(x.getRegistrationNumber())).findAny().orElse(null);
 	if (registration != null) {
-		registration.getRegistrationNumber();
+		return registration.getSlotNumber();
 	}
 	return -1;
 }
@@ -72,6 +76,7 @@ public Integer getSlotNumberByRegistrationName(final String registrationNunber) 
  * @param color
  * @return List<String> registrationNumber
  */
+@Override
 public List<String> getRegistrationNumberByColor(String color) {
 	final List<String> registrations = new ArrayList<>();
 	registrationsList.forEach((x) -> {
@@ -87,11 +92,14 @@ public List<String> getRegistrationNumberByColor(String color) {
  * @param
  * @return registrationList
  */
+@Override
 public List<Registration> getAllRegistration() {
 	return registrationsList;
 }
 
+@Override
 public boolean removeAllocation(int slotNumber) {
+
 	if (slots.contains(slotNumber) || slotNumber <= 0 || slotNumber > totalSlotSize) {
 		return false;
 	}

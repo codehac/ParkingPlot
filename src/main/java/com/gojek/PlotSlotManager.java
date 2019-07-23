@@ -1,20 +1,22 @@
-import constants.Constants;
-import modal.Registration;
-import service.RegistrationService;
-import service.RegistrationServiceImpl;
+package com.gojek;
+
+import com.gojek.constants.Constants;
+import com.gojek.modal.Registration;
+import com.gojek.service.RegistrationService;
+import com.gojek.service.RegistrationServiceImpl;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class PlotSlotManager {
 
 static RegistrationService registrationService = new RegistrationServiceImpl();
 static final Scanner cin = new Scanner(System.in);
 
 public static void main(String[] args) throws FileNotFoundException {
-	if (0 == args[0].length() || null == args[0]) {
+	if (args != null && args.length > 0) {
 		readDirectory(args[0]);
 	} else {
 		startCMD();
@@ -37,10 +39,13 @@ private static void startCMD() {
  * @return
  */
 private static void readDirectory(String directoryName) throws FileNotFoundException {
+	if (checkEmpty(directoryName)) {
+		System.out.println("Please Enter Valid Name of Directory");
+	}
 	FileInputStream inputStream = new FileInputStream(directoryName);
 	Scanner cin = new Scanner(inputStream);
 	while (cin.hasNextLine()) {
-		String[] data = cin.nextLine().split("/ ");
+		String[] data = cin.nextLine().split(" ");
 		processData(data);
 	}
 }
@@ -51,7 +56,6 @@ private static void readDirectory(String directoryName) throws FileNotFoundExcep
  */
 private static void processData(String[] data) {
 	String commandType = data[0];
-
 	switch (commandType) {
 		case Constants.CREATE:
 			registrationService.register(Integer.parseInt(data[1]));
@@ -81,7 +85,7 @@ private static void processData(String[] data) {
 			if (!removeStatus) {
 				System.out.println("Invalid Operation");
 			} else {
-				System.out.println("Slot number" + data[1] + "is free ");
+				System.out.println("Slot number " + data[1] + " is free ");
 			}
 			break;
 		case Constants.SLOT_NUMBER_BY_COLOR:
@@ -146,7 +150,7 @@ private static void printStatus(final List<Registration> registration) {
 	}
 	System.out.println("Slot No.  " + " Registration No  " + " Colour");
 	registration.forEach((x) -> {
-		System.out.println(x.getSlotNumber() + " " + x.getRegistrationNumber() + " " + x.getColor());
+		System.out.println(x.getSlotNumber() + "           " + x.getRegistrationNumber() + "     " + x.getColor());
 	});
 }
 

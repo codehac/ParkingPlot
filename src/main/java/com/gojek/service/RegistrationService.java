@@ -1,6 +1,6 @@
-package service;
+package com.gojek.service;
 
-import modal.Registration;
+import com.gojek.modal.Registration;
 
 import java.util.List;
 

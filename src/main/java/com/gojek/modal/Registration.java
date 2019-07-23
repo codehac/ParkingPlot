@@ -1,4 +1,4 @@
-package modal;
+package com.gojek.modal;
 
 public class Registration {
 private String registrationNumber;

@@ -1,0 +1,5 @@
+com\gojek\modal\Registration.class
+com\gojek\service\RegistrationService.class
+com\gojek\service\RegistrationServiceImpl.class
+com\gojek\PlotSlotManager.class
+com\gojek\constants\Constants.class
