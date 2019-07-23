@@ -63,6 +63,7 @@ public List<Integer> getAllSlotNumberByColor(final String color) {
 public Integer getSlotNumberByRegistrationName(final String registrationNunber) {
 	Registration registration = null;
 	if (EmptyRegistration()) {
+		System.out.println("empty with registration");
 		return -1;
 	}
 	registration = registrationsList.stream().filter(x -> registrationNunber.equals(x.getRegistrationNumber())).findAny().orElse(null);
@@ -100,7 +101,7 @@ public List<Registration> getAllRegistration() {
 @Override
 public boolean removeAllocation(int slotNumber) {
 
-	if (slots.contains(slotNumber) || slotNumber <= 0 || slotNumber > totalSlotSize) {
+	if (null == slots || slots.contains(slotNumber) || slotNumber <= 0 || slotNumber > totalSlotSize) {
 		return false;
 	}
 	registrationsList.remove(slotNumber - 1);

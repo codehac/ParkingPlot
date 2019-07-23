@@ -58,35 +58,29 @@ public static void processData(String[] data) {
 	String commandType = data[0];
 	switch (commandType) {
 		case Constants.CREATE:
-			registrationService.register(Integer.parseInt(data[1]));
+			if (data.length <= 1) {
+				System.out.println("Please Enter Valid Input");
+				return;
+			}
+			createRegistration(data[1]);
 			break;
 		case Constants.PARK:
-			if (checkEmpty(data[1]) || checkEmpty(data[2])) {
+			if (data.length < 3 || checkEmpty(data[1]) || checkEmpty(data[2])) {
 				System.out.println("Please Enter Valid Input");
 				break;
 			}
-			final int status = registrationService.allocateSlots(getRegistration(data[1], data[2]));
-			if (status == -1) {
-				System.out.println("Sorry, parking lot is full");
-			} else {
-				System.out.println("Allocated slot number: " + String.valueOf(status));
-			}
+			parkCar(data[1], data[2]);
 			break;
 		case Constants.STATUS:
 			List<Registration> registrationList = registrationService.getAllRegistration();
 			printStatus(registrationList);
 			break;
 		case Constants.LEAVE:
-			if (checkEmpty(data[1])) {
+			if (data.length <= 1 || checkEmpty(data[1])) {
 				System.out.println("Please Enter Valid Input");
 				break;
 			}
-			boolean removeStatus = registrationService.removeAllocation(Integer.parseInt(data[1]));
-			if (!removeStatus) {
-				System.out.println("Invalid Operation");
-			} else {
-				System.out.println("Slot number " + data[1] + " is free ");
-			}
+			removeCarFromSlot(data[1]);
 			break;
 		case Constants.SLOT_NUMBER_BY_COLOR:
 			if (checkEmpty(data[1])) {
@@ -129,6 +123,38 @@ public static void processData(String[] data) {
 			break;
 		default:
 			System.out.println("Please Enter Valid Input");
+	}
+}
+
+private static void createRegistration(final String value) {
+	try {
+		registrationService.register(Integer.parseInt(value));
+	} catch (NumberFormatException e) {
+		System.out.println("Enter Valid Input for size slot");
+	}
+
+}
+
+private static void removeCarFromSlot(final String slotNumber) {
+	try {
+		boolean removeStatus = registrationService.removeAllocation(Integer.parseInt(slotNumber));
+		if (!removeStatus) {
+			System.out.println("Invalid Operation");
+		} else {
+			System.out.println("Slot number " + slotNumber + " is free ");
+		}
+	} catch (NumberFormatException e) {
+		System.out.println("Please Enter valid Input");
+	}
+
+}
+
+private static void parkCar(final String registartionNumber, final String color) {
+	final int status = registrationService.allocateSlots(getRegistration(registartionNumber, color));
+	if (status == -1) {
+		System.out.println("Sorry, parking lot is full");
+	} else {
+		System.out.println("Allocated slot number: " + String.valueOf(status));
 	}
 }
 
