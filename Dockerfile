@@ -1,10 +1,8 @@
 FROM maven:3.6-jdk-8 as build
-COPY src /bin/src
-COPY pom.xml /bin
-RUN ls -l
-RUN mvn -f bin/pom.xml clean package
-
-FROM openjdk:8-jre-alpine
-RUN ls -l
-COPY --from=build  bin/target/goJek-1.0-SNAPSHOT.jar bin/plotslot.jar
-ENTRYPOINT ["java","-jar","bin/plotslot.jar"]
+COPY src /src
+COPY pom.xml /
+COPY parking_lot.sh /
+COPY setup.sh /
+RUN chmod +x ./parking_lot.sh
+RUN chmod +x ./setup.sh
+#CMD ["bash ./setup.sh", "bash ./parking_lot src/main/resources/file_input.txt"]

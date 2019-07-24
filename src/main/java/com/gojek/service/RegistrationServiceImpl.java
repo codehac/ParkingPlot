@@ -118,14 +118,14 @@ public class RegistrationServiceImpl implements RegistrationService {
   }
 
   private boolean EmptyRegistration() {
-    if (registrationsList.isEmpty() || null == registrationsList) {
+    if (null == registrationsList || registrationsList.isEmpty()) {
       return true;
     }
     return false;
   }
 
   private boolean EmptySlots() {
-    if (slots.isEmpty() || null == slots) {
+    if (null == slots || slots.isEmpty()) {
       return true;
     }
     return false;

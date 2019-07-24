@@ -21,12 +21,12 @@ public class PlotSlotManagerTest {
 
   @Before
   public void beforeEachTest() {
-    System.out.println("This is executed before each Test");
+    System.out.println("Test is executed");
   }
 
   @After
   public void AfterEachTest() {
-    System.out.println("This is executed After each Tests");
+    System.out.println("Test is finished");
   }
 
   @Test
