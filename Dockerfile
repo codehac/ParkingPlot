@@ -1,8 +1,10 @@
 FROM maven:3.6-jdk-8 as build
-COPY src home/usr/bin/src
-COPY pom.xml home/usr/bin
-RUN mvn home/usr/bin/pom.xml clean install
+COPY src /bin/src
+COPY pom.xml /bin
+RUN ls -l
+RUN mvn -f bin/pom.xml clean package
 
-FROM openjdk:8-jre
-COPY --from=build  usr/bin/target/gojek-1.0-SNAPSHOT.jar home/usr/bin/plotslot.jar
-ENTRYPOINT ["java","-jar","home/usr/bin/plotslot.jar"]
+FROM openjdk:8-jre-alpine
+RUN ls -l
+COPY --from=build  bin/target/goJek-1.0-SNAPSHOT.jar bin/plotslot.jar
+ENTRYPOINT ["java","-jar","bin/plotslot.jar"]
